@@ -31,9 +31,28 @@ function getRemainingTime(post) {
   if (days > 0) return `${days}д ${hours % 24}ч`;
   return `${hours}ч`;
 }
+// ========== УДАЛЕНИЕ ПРОСРОЧЕННЫХ ПОСТОВ ==========
+function removeExpiredPosts() {
+  const now = Date.now();
+  let changed = false;
+  
+  posts = posts.filter(post => {
+    const expiresAt = post.createdAt + (post.lifeTime * 60 * 60 * 1000);
+    if (expiresAt <= now) {
+      changed = true;
+      return false;
+    }
+    return true;
+  });
+  
+  if (changed) {
+    saveData();
+  }
+}
 
 // ========== ОТРИСОВКА ЛЕНТЫ ==========
 function renderFeed() {
+  removeExpiredPosts();
   const feed = document.getElementById('feed');
   const template = document.getElementById('form');
   const isMyAuthors = document.getElementById('suBTN')?.classList.contains('active');
