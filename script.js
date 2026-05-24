@@ -17,6 +17,21 @@ function saveData() {
   localStorage.setItem(`subscribed_${currentUser}`, JSON.stringify(subscribedAuthors));
 }
 
+// ========== ОБРАТНЫЙ ОТСЧЁТ ==========
+function getRemainingTime(post) {
+  const now = Date.now();
+  const expiresAt = post.createdAt + (post.lifeTime * 60 * 60 * 1000);
+  const remaining = expiresAt - now;
+  
+  if (remaining <= 0) return "0ч";
+  
+  const hours = Math.floor(remaining / (60 * 60 * 1000));
+  const days = Math.floor(hours / 24);
+  
+  if (days > 0) return `${days}д ${hours % 24}ч`;
+  return `${hours}ч`;
+}
+
 // ========== ОТРИСОВКА ЛЕНТЫ ==========
 function renderFeed() {
   const feed = document.getElementById('feed');
@@ -58,8 +73,8 @@ function renderFeed() {
     const nikEl = postCard.querySelector('.nik');
     if (nikEl) nikEl.textContent = post.author;
     
-    const timeEl = postCard.querySelector('.time');
-    if (timeEl) timeEl.innerHTML = (post.lifeTime || 24) + 'ч';
+     const timeEl = postCard.querySelector('.time');
+    if (timeEl) timeEl.innerHTML = getRemainingTime(post);
     
     const likeCountEl = postCard.querySelector('.like-count');
     if (likeCountEl) likeCountEl.textContent = post.likes || 0;
@@ -67,8 +82,8 @@ function renderFeed() {
     const dizCountEl = postCard.querySelector('.diz-count');
     if (dizCountEl) dizCountEl.textContent = post.dislikes || 0;
     
-    const viewsEl = postCard.querySelector('.views');
-    if (viewsEl) viewsEl.innerHTML = post.views || 0;
+    const viewsCountEl = postCard.querySelector('.views-count');
+if (viewsCountEl) viewsCountEl.textContent = post.views || 0;
     
     const descEl = postCard.querySelector('.post-description');
     if (descEl) descEl.textContent = post.text;
@@ -99,7 +114,7 @@ function renderFeed() {
           post.hasDisliked = false;
           post.dislikes = (post.dislikes || 0) - 1;
         }
-        
+
         // Подписка на автора
         console.log('4. Автор поста:', post.author);
         console.log('5. currentUser:', currentUser);
@@ -180,8 +195,9 @@ function createPost() {
     hasDisliked: false,
     views: 0,
     viewCounted: false,
-    lifeTime: 24,
-    image: null
+        lifeTime: parseInt(document.querySelector('input[name="post-time"]:checked')?.value) || 24,
+    image: null,
+    createdAt: Date.now()
   };
   
   const file = document.getElementById('file-upload');
