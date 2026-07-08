@@ -310,7 +310,7 @@ body {
     font-weight: 600;
     border: none;
     cursor: pointer;
-    width: 100%; /* Кнопка на всю ширину смотрится лучше */
+    width: 100%; 
     transition: transform 0.2s, background 0.2s;
 }
 
