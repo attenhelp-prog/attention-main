@@ -341,3 +341,22 @@ body {
     padding: 8px 16px;
   }
 }
+/* ===== ФОТО В ПРОФИЛЕ (ИЗ РАБОЧЕЙ ВЕРСИИ) ===== */
+.profile-post-image {
+    max-width: 100%;
+    border-radius: 12px;
+    margin: 7px 0;
+    display: block;
+    background: #f4f5f7;
+    width: 100%;
+    height: auto;
+}
+
+.profile-post-image:empty {
+    display: none;
+}
+
+.profile-post-image[src=""],
+.profile-post-image:not([src]) {
+    display: none;
+}
