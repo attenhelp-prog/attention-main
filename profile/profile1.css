@@ -1,4 +1,4 @@
-body {
+/* body {
     margin: 0;
     padding: 20px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -116,8 +116,143 @@ body {
 .profile-post-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+} */
+
+
+
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #121218;
+    color: #e3e3e8;
 }
 
+.back {
+    background: none;
+    border: 1px solid #1e1e28;
+    font-size: 14px;
+    color: #d4d4e0;
+    cursor: pointer;
+    padding: 10px 16px;
+    background: #16161e;
+    border-radius: 12px;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.back:hover {
+    transform: scale(1.05);
+    border-color: #8b7cf7;
+    color: #8b7cf7;
+}
+
+.profile-name {
+    text-align: center;
+    font-size: 22px;
+    margin: 20px 0;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.text {
+    text-align: center;
+    color: #5a5a72;
+    font-size: 16px;
+    margin: 40px 0;
+}
+
+#profile-feed {
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.profile-post-card {
+    max-width: 350px;
+    width: 90%;
+    margin: 20px auto;
+    background: #16161e;
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid #1e1e28;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.profile-post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    border-color: #2a2a40;
+}
+
+.profile-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.profile-post-author {
+    font-weight: 600;
+    font-size: 14px;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.profile-post-time {
+    font-size: 13px;
+    color: #5a5a72;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.profile-post-text {
+    font-size: 15px;
+    line-height: 1.4;
+    margin: 4px 0 10px 0;
+    color: #d4d4e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.profile-post-image {
+    max-width: 100%;
+    border-radius: 12px;
+    margin: 7px 0;
+    display: block;
+    background: #0e0e16;
+}
+
+.profile-post-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 13px;
+    color: #5a5a72;
+    margin-top: 8px;
+    padding-top: 10px;
+    border-top: 1px solid #1e1e28;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-item svg {
+    stroke: #5a5a72;
+    flex-shrink: 0;
+}
+
+.profile-post-card:hover .stat-item {
+    color: #8a8aa0;
+}
+
+.profile-post-card:hover .stat-item svg {
+    stroke: #8a8aa0;
+}
 
 
 
