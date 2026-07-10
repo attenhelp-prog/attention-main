@@ -1,4 +1,4 @@
-body {
+ /* body {
   margin: 0;
   padding: 0;
   background-color: #f6f8fa; 
@@ -345,9 +345,8 @@ body {
 .overlay .modal-content {
     transform: scale(0.8); 
     transition: transform 0.3s ease-in-out;
-}
+} 
 
-/* Когда окно активно */
 .overlay.active {
     opacity: 1;
     visibility: visible;
@@ -584,5 +583,672 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, A
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
   color: #222;
+} 
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* ============================================
+   ATTENTION — DARK EDGE
+   Вдохновлён Discord, но со своим характером
+   ============================================ */
+
+/* ----- ОСНОВНЫЕ ЦВЕТА ----- */
+body {
+  margin: 0;
+  padding: 0;
+  background: #121218;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #e3e3e8;
 }
 
+/* ----- ЛОГОТИП ----- */
+.logo {
+  font-family: -apple-system, sans-serif;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  padding: 16px 0 12px;
+  margin: 0;
+  color: #ffffff;
+  border-bottom: 1px solid #1e1e28;
+  background: #16161e;
+}
+
+.logo span {
+  color: #8b7cf7;
+}
+
+/* ----- ПОИСК ----- */
+.search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  background: #16161e;
+  border-bottom: 1px solid #1e1e28;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.search-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.search2 {
+  flex: 1;
+  border: 1px solid #28283a;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-size: 14px;
+  background: #12121a;
+  color: #e3e3e8;
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+.search2::placeholder {
+  color: #5a5a72;
+}
+
+.search2:focus {
+  border-color: #8b7cf7;
+  box-shadow: 0 0 0 4px rgba(139, 124, 247, 0.08);
+}
+
+.N {
+  border: none;
+  padding: 10px 22px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #8b7cf7;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.N:hover {
+  background: #7a6be0;
+  box-shadow: 0 4px 16px rgba(139, 124, 247, 0.25);
+}
+
+.N:active {
+  transform: scale(0.97);
+}
+
+/* ----- КНОПКИ РЕКОМЕНДАЦИИ / МОИ АВТОРЫ ----- */
+.resu {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 30px;
+  background: #12121a;
+  border: 1px solid #1a1a26;
+}
+
+.re, .su {
+  background: none;
+  border: none;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5a5a72;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.2s ease;
+}
+
+.re:hover, .su:hover {
+  color: #b8b8d0;
+  background: #1a1a28;
+}
+
+.re.active, .su.active {
+  color: #ffffff;
+  background: #8b7cf7;
+  box-shadow: 0 4px 12px rgba(139, 124, 247, 0.2);
+}
+
+.re::after {
+  content: "•";
+  margin-left: 8px;
+  color: #2a2a3e;
+}
+
+/* ----- ЛЕНТА ----- */
+#feed {
+  max-width: 480px;
+  margin: 0 auto 100px;
+  padding: 16px 16px;
+}
+
+/* ----- КАРТОЧКА ПОСТА ----- */
+.post-card {
+  background: #16161e;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  padding: 4px 0 2px 0;
+  transition: all 0.3s ease;
+  border: 1px solid #1e1e28;
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  border-color: #2a2a40;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* ----- ИНФО (ШАПКА ПОСТА) ----- */
+.info {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px 2px 16px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nik {
+  font-weight: 700;
+  font-size: 15px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nik:hover {
+  color: #8b7cf7;
+}
+
+.time {
+  color: #5a5a72;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ----- КНОПКИ ЛАЙКОВ ----- */
+.butt {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #12121a;
+  padding: 2px 8px 2px 4px;
+  border-radius: 30px;
+}
+
+.butt button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  color: #5a5a72;
+  border-radius: 30px;
+  transition: all 0.2s ease;
+}
+
+.butt button svg {
+  stroke: #5a5a72;
+  transition: stroke 0.2s;
+}
+
+.like:hover {
+  color: #8b7cf7;
+}
+.like:hover svg {
+  stroke: #8b7cf7;
+}
+
+.diz:hover {
+  color: #f77c7c;
+}
+.diz:hover svg {
+  stroke: #f77c7c;
+}
+
+.like-count, .diz-count {
+  font-size: 12px;
+  font-weight: 500;
+  color: #5a5a72;
+}
+
+/* ----- ПРОСМОТРЫ ----- */
+.views {
+  margin-left: auto;
+  color: #5a5a72;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ----- ТЕКСТ ПОСТА ----- */
+.post-description {
+  padding: 4px 16px 12px 16px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #d4d4e0;
+  word-wrap: break-word;
+}
+
+/* ----- КАРТИНКА В ПОСТЕ ----- */
+.post-image {
+  margin: 0 16px 10px 16px;
+  background: #0e0e16;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.post-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+}
+
+.post-image:empty {
+  display: none;
+}
+
+/* ============================================
+   КНОПКИ + И P (ПЛАВАЮЩИЕ)
+   ============================================ */
+.new {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  font-size: 28px;
+  font-weight: 300;
+  background: #8b7cf7;
+  color: #ffffff;
+  box-shadow: 0 4px 24px rgba(139, 124, 247, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 50;
+}
+
+.new:hover {
+  transform: scale(1.08);
+  background: #7a6be0;
+  box-shadow: 0 8px 40px rgba(139, 124, 247, 0.4);
+}
+
+.new:active {
+  transform: scale(0.92);
+}
+
+.p {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid #1e1e28;
+  font-size: 18px;
+  font-weight: 600;
+  background: #16161e;
+  color: #d4d4e0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 50;
+}
+
+.p:hover {
+  transform: scale(1.08);
+  border-color: #8b7cf7;
+  color: #8b7cf7;
+}
+
+.p:active {
+  transform: scale(0.92);
+}
+
+/* ============================================
+   МОДАЛКА
+   ============================================ */
+.overlay {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.35s ease;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.overlay .modal-content {
+  transform: scale(0.94) translateY(12px);
+  transition: all 0.35s ease;
+}
+
+.overlay.active .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+.list {
+  width: 90%;
+  max-width: 400px;
+  background: #16161e;
+  border-radius: 24px;
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 1px solid #1e1e28;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+}
+
+/* ----- ПОЛЕ ВВОДА ОПИСАНИЯ ----- */
+.des {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #1e1e28;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+  background: #12121a;
+  color: #e3e3e8;
+  transition: border-color 0.25s;
+}
+
+.des::placeholder {
+  color: #4a4a5e;
+}
+
+.des:focus {
+  border-color: #8b7cf7;
+}
+
+/* ----- ЗАГРУЗКА КАРТИНКИ ----- */
+.img-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+  width: 100%;
+  background: #12121a;
+  border-radius: 14px;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  border: 2px dashed #1e1e28;
+  transition: border-color 0.25s;
+}
+
+.img-card:hover {
+  border-color: #8b7cf7;
+}
+
+.te {
+  color: #4a4a5e;
+  font-size: 28px;
+  pointer-events: none;
+  user-select: none;
+  display: none;
+}
+
+/* ----- ВРЕМЯ (СРОК ПУБЛИКАЦИИ) ----- */
+.schedule-section {
+  margin-top: 2px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #5a5a72;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+
+.time-grid {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.time-card input {
+  display: none;
+}
+
+.time-card span {
+  display: inline-block;
+  padding: 6px 14px;
+  background: #12121a;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #7a7a92;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.time-card input:checked + span {
+  background: #8b7cf7;
+  color: #ffffff;
+  border-color: #8b7cf7;
+  box-shadow: 0 4px 12px rgba(139, 124, 247, 0.2);
+}
+
+.time-card span:hover {
+  background: #1a1a2a;
+}
+
+/* ----- БУСТ ----- */
+.boost-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  max-height: 84px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.boost-grid::-webkit-scrollbar {
+  width: 3px;
+}
+.boost-grid::-webkit-scrollbar-thumb {
+  background: #2a2a3e;
+  border-radius: 20px;
+}
+
+.boost-card input {
+  display: none;
+}
+
+.boost-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 14px;
+  background: #12121a;
+  border: 1px solid #1a1a28;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.boost-card input:checked + .boost-info {
+  background: #1a1a28;
+  border-color: #8b7cf7;
+}
+
+.boost-time {
+  font-size: 13px;
+  font-weight: 500;
+  color: #d4d4e0;
+}
+
+.boost-time small {
+  color: #8b7cf7;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+.boost-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: #7a7a92;
+}
+
+/* ----- КНОПКА ОПУБЛИКОВАТЬ ----- */
+.publish {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.go {
+  background: #8b7cf7;
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.25s ease;
+}
+
+.go:hover {
+  background: #7a6be0;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(139, 124, 247, 0.25);
+}
+
+.go:active {
+  transform: scale(0.98);
+}
+
+/* ----- СКРЫТЫЙ ШАБЛОН ----- */
+#form {
+  display: none;
+}
+
+/* ============================================
+   АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНА
+   ============================================ */
+@media (max-width: 480px) {
+  .new, .p {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+    bottom: 24px;
+  }
+  .new { right: 24px; }
+  .p { left: 24px; }
+
+  .post-card {
+    border-radius: 12px;
+  }
+
+  .info {
+    padding: 10px 14px 2px 14px;
+  }
+
+  .post-description {
+    padding: 2px 14px 10px 14px;
+    font-size: 14px;
+  }
+
+  .post-image {
+    margin: 0 14px 8px 14px;
+  }
+
+  .list {
+    padding: 20px 16px;
+  }
+
+  .search2 {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+
+  .N {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+
+  .logo {
+    font-size: 24px;
+    padding: 14px 0 10px;
+  }
+}
+.hidden-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}

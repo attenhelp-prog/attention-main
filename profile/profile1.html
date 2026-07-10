@@ -1,4 +1,4 @@
-<html lang="ru">
+<!-- <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -127,6 +127,160 @@
         }
 
         // ========== ЗАПУСК ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProfilePosts();
+        });
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile</title>
+    <link rel="stylesheet" href="profile1.css">
+</head>
+<body>
+    <div>
+        <a href="../index.html">
+            <button class="back">Назад</button>
+        </a>
+    </div>
+    
+    <h2 class="profile-name">👤 <span id="profile-username">Пользователь</span></h2>
+    <p class="text" id="empty-text">Постов нет.</p>
+    
+    <div id="profile-feed"></div>
+
+    <script>
+        let posts = [];
+        let currentUser = "user";
+
+        function loadData() {
+            const saved = localStorage.getItem('posts');
+            if (saved) posts = JSON.parse(saved);
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) currentUser = savedUser;
+        }
+
+        function getRemainingTime(post) {
+            const now = Date.now();
+            const expiresAt = post.createdAt + (post.lifeTime * 60 * 60 * 1000);
+            const remaining = expiresAt - now;
+            if (remaining <= 0) return "0ч";
+            const hours = Math.floor(remaining / (60 * 60 * 1000));
+            const days = Math.floor(hours / 24);
+            if (days > 0) return days + "д " + (hours % 24) + "ч";
+            return hours + "ч";
+        }
+
+        function renderProfilePosts() {
+            const container = document.getElementById('profile-feed');
+            const emptyText = document.getElementById('empty-text');
+            
+            if (!container) return;
+            
+            loadData();
+            
+            const userPosts = posts.filter(function(post) {
+                return post.author === currentUser;
+            });
+            
+            if (userPosts.length === 0) {
+                if (emptyText) emptyText.style.display = 'block';
+                container.innerHTML = '';
+                return;
+            }
+            
+            if (emptyText) emptyText.style.display = 'none';
+            
+            const nameSpan = document.getElementById('profile-username');
+            if (nameSpan) nameSpan.textContent = currentUser;
+            
+            container.innerHTML = '';
+            
+            userPosts.forEach(function(post) {
+                const postDiv = document.createElement('div');
+                postDiv.className = 'profile-post-card';
+                
+                const remaining = getRemainingTime(post);
+                
+                // ФОТО — проверяем, есть ли оно
+                let imageHtml = '';
+                if (post.image && post.image !== '') {
+                    imageHtml = '<img src="' + post.image + '" class="profile-post-image" alt="Фото поста">';
+                }
+                
+                postDiv.innerHTML = `
+                    <div class="profile-post-header">
+                        <span class="profile-post-author">${post.author}</span>
+                        <span class="profile-post-time">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            ${remaining}
+                        </span>
+                    </div>
+                    <div class="profile-post-text">${post.text}</div>
+                    ${imageHtml}
+                    <div class="profile-post-stats">
+                        <span class="stat-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="18 15 12 9 6 15" />
+                            </svg>
+                            ${post.likes || 0}
+                        </span>
+                        <span class="stat-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                            ${post.dislikes || 0}
+                        </span>
+                        <span class="stat-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            ${post.views || 0}
+                        </span>
+                        <span class="stat-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            ${post.lifeTime || 24}ч
+                        </span>
+                    </div>
+                `;
+                
+                container.appendChild(postDiv);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             renderProfilePosts();
         });
