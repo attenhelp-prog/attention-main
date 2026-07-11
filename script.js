@@ -106,12 +106,15 @@ if (viewsCountEl) viewsCountEl.textContent = post.views || 0;
     
     const descEl = postCard.querySelector('.post-description');
     if (descEl) descEl.textContent = post.text;
-    
+  
     const postImageDiv = postCard.querySelector('.post-image');
-    if (post.image && postImageDiv) {
-      postImageDiv.innerHTML = `<img src="${post.image}" style="max-width:100%; border-radius:12px;">`;
-    }
-    
+if (post.image && postImageDiv) {
+    postImageDiv.innerHTML = `<img src="${post.image}" alt="">`;
+    postImageDiv.style.display = '';
+} else if (postImageDiv) {
+    postImageDiv.style.display = 'none';
+    postImageDiv.innerHTML = '';
+}
         // ===== ЛАЙК + ПОДПИСКА =====
     const likeBtn = postCard.querySelector('.like');
     if (likeBtn) {
