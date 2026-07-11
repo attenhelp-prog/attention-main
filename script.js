@@ -100,8 +100,8 @@ function renderFeed() {
     const dizCountEl = postCard.querySelector('.diz-count');
     if (dizCountEl) dizCountEl.textContent = post.dislikes || 0;
     
-    const viewsEl = postCard.querySelector('.views');
-    if (viewsEl) viewsEl.innerHTML = post.views || 0;
+    const viewsCountEl = postCard.querySelector('.views-count');
+if (viewsCountEl) viewsCountEl.textContent = post.views || 0;
     
     const descEl = postCard.querySelector('.post-description');
     if (descEl) descEl.textContent = post.text;
