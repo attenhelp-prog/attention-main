@@ -2,6 +2,7 @@
 let posts = [];
 let currentUser = "user";
 let subscribedAuthors = [];
+let currentReplyTo = null;
 
 // ========== ЗАГРУЗКА/СОХРАНЕНИЕ ==========
 function loadData() {
@@ -49,8 +50,6 @@ function removeExpiredPosts() {
     saveData();
   }
 }
-
-// ========== ОТРИСОВКА ЛЕНТЫ ==========
 function renderFeed() {
   removeExpiredPosts();
   const feed = document.getElementById('feed');
@@ -92,7 +91,7 @@ function renderFeed() {
     const nikEl = postCard.querySelector('.nik');
     if (nikEl) nikEl.textContent = post.author;
     
-     const timeEl = postCard.querySelector('.time');
+    const timeEl = postCard.querySelector('.time');
     if (timeEl) timeEl.innerHTML = getRemainingTime(post);
     
     const likeCountEl = postCard.querySelector('.like-count');
@@ -101,60 +100,67 @@ function renderFeed() {
     const dizCountEl = postCard.querySelector('.diz-count');
     if (dizCountEl) dizCountEl.textContent = post.dislikes || 0;
     
-    const viewsCountEl = postCard.querySelector('.views-count');
-if (viewsCountEl) viewsCountEl.textContent = post.views || 0;
+    const viewsEl = postCard.querySelector('.views');
+    if (viewsEl) viewsEl.innerHTML = post.views || 0;
     
     const descEl = postCard.querySelector('.post-description');
     if (descEl) descEl.textContent = post.text;
-  
+    
+    // Картинка
     const postImageDiv = postCard.querySelector('.post-image');
-if (post.image && postImageDiv) {
-    postImageDiv.innerHTML = `<img src="${post.image}" alt="">`;
-    postImageDiv.style.display = '';
-} else if (postImageDiv) {
-    postImageDiv.style.display = 'none';
-    postImageDiv.innerHTML = '';
-}
-        // ===== ЛАЙК + ПОДПИСКА =====
+    if (post.image && postImageDiv) {
+      postImageDiv.innerHTML = `<img src="${post.image}" style="max-width:100%; border-radius:12px;">`;
+      postImageDiv.style.display = '';
+    } else if (postImageDiv) {
+      postImageDiv.style.display = 'none';
+      postImageDiv.innerHTML = '';
+    }
+    
+    // ===== ВЛОЖЕННЫЙ ПОСТ (ЕСЛИ ЭТО ОТВЕТ) =====
+    if (post.replyTo) {
+      const parentPost = posts.find(p => p.id === post.replyTo);
+      if (parentPost) {
+        const contextDiv = document.createElement('div');
+        contextDiv.className = 'reply-context';
+        contextDiv.innerHTML = `
+          <div class="reply-header">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+    Ответ на пост от ${parentPost.author}
+</div>
+          <div class="reply-text">${parentPost.text}</div>
+        `;
+        // Вставляем контекст ПЕРЕД информацией о посте
+        const infoEl = postCard.querySelector('.info');
+        if (infoEl) {
+          postCard.insertBefore(contextDiv, infoEl);
+        }
+      }
+    }
+    
+    // ===== ЛАЙК + ПОДПИСКА =====
     const likeBtn = postCard.querySelector('.like');
     if (likeBtn) {
       const newLikeBtn = likeBtn.cloneNode(true);
       likeBtn.parentNode.replaceChild(newLikeBtn, likeBtn);
       
       newLikeBtn.onclick = () => {
-        console.log('1. Лайк нажат');
-        console.log('2. post.hasLiked =', post.hasLiked);
-        
         if (post.hasLiked) return;
-        
         post.hasLiked = true;
         post.likes = (post.likes || 0) + 1;
-        
-        console.log('3. Теперь лайков:', post.likes);
         
         if (post.hasDisliked) {
           post.hasDisliked = false;
           post.dislikes = (post.dislikes || 0) - 1;
         }
-
-        // Подписка на автора
-        console.log('4. Автор поста:', post.author);
-        console.log('5. currentUser:', currentUser);
-        console.log('6. Текущие подписки:', subscribedAuthors);
         
         if (post.author !== currentUser) {
           if (!subscribedAuthors.includes(post.author)) {
             subscribedAuthors.push(post.author);
             saveData();
-            console.log('✅ Подписались на:', post.author);
-          } else {
-            console.log('❌ Уже подписан на:', post.author);
           }
-        } else {
-          console.log('❌ Нельзя подписаться на себя');
         }
-        
-        console.log('7. Итоговые подписки:', subscribedAuthors);
         
         saveData();
         renderFeed();
@@ -179,12 +185,26 @@ if (post.image && postImageDiv) {
         
         const hideUntil = Date.now() + (45 * 24 * 60 * 60 * 1000);
         localStorage.setItem(`hidden_${currentUser}_${post.author}`, hideUntil);
-        console.log('✅ Скрыли автора:', post.author);
         
         saveData();
         renderFeed();
       };
     }
+    
+    // ===== КНОПКА ОТВЕТИТЬ =====
+    const replyBtn = document.createElement('button');
+    replyBtn.className = 'reply-btn';
+    replyBtn.innerHTML = `
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+    Ответить
+`;
+    replyBtn.onclick = () => {
+      currentReplyTo = post.id;
+      document.querySelector('.overlay').classList.add('active');
+    };
+    postCard.appendChild(replyBtn);
     
     feed.appendChild(postCard);
     
@@ -218,6 +238,7 @@ function createPost() {
     views: 0,
     viewCounted: false,
         lifeTime: parseInt(document.querySelector('input[name="post-time"]:checked')?.value) || 24,
+         replyTo: currentReplyTo || null,
     image: null,
     createdAt: Date.now()
   };

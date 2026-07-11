@@ -610,3 +610,43 @@ body {
     opacity: 0;
     pointer-events: none;
 }
+/* ===== КОНТЕКСТ ОТВЕТА ===== */
+.reply-context {
+  background: rgba(139, 124, 247, 0.08);
+  border-left: 3px solid #8b7cf7;
+  padding: 8px 14px;
+  margin: 4px 16px 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.reply-header {
+  font-weight: 600;
+  color: #8b7cf7;
+  margin-bottom: 2px;
+  font-size: 12px;
+}
+
+.reply-text {
+  color: #d4d4e0;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+/* ===== КНОПКА ОТВЕТИТЬ ===== */
+.reply-btn {
+  background: none;
+  border: none;
+  color: #5a5a72;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 4px 16px 8px 16px;
+  transition: color 0.2s;
+  font-weight: 500;
+}
+
+.reply-btn:hover {
+  color: #8b7cf7;
+}
+
