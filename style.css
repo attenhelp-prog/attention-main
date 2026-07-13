@@ -134,18 +134,16 @@ body {
   padding: 16px 16px;
 }
 
- */
+ 
 .post-card {
   background: #16161e;
   border-radius: 16px;
   margin-bottom: 12px;
   padding: 4px 0 2px 0;
   transition: all 0.3s ease;
-  border: 1px solid #1e1e28;
 }
 
 .post-card:hover {
-  transform: translateY(-2px);
   border-color: #2a2a40;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
 }

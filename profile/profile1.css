@@ -53,11 +53,9 @@ body {
     padding: 16px;
     border: 1px solid #1e1e28;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .profile-post-card:hover {
-    transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     border-color: #2a2a40;
 }
@@ -130,32 +128,6 @@ body {
 .profile-post-card:hover .stat-item svg {
     stroke: #8a8aa0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
