@@ -159,30 +159,68 @@ function renderFeed() {
         renderFeed();
       };
     }
-    
-    // ===== ДИЗЛАЙК =====
+        // ===== ДИЗЛАЙК + ПОДТВЕРЖДЕНИЕ =====
     const dizBtn = postCard.querySelector('.diz');
     if (dizBtn) {
-      const newDizBtn = dizBtn.cloneNode(true);
-      dizBtn.parentNode.replaceChild(newDizBtn, dizBtn);
-      
-      newDizBtn.onclick = () => {
-        if (post.hasDisliked) return;
-        post.hasDisliked = true;
-        post.dislikes = (post.dislikes || 0) + 1;
-        
-        if (post.hasLiked) {
-          post.hasLiked = false;
-          post.likes = (post.likes || 0) - 1;
-        }
-        
-        const hideUntil = Date.now() + (45 * 24 * 60 * 60 * 1000);
-        localStorage.setItem(`hidden_${currentUser}_${post.author}`, hideUntil);
-        
-        saveData();
-        renderFeed();
-      };
+        const newDizBtn = dizBtn.cloneNode(true);
+        dizBtn.parentNode.replaceChild(newDizBtn, dizBtn);
+
+        newDizBtn.onclick = () => {
+            if (post.hasDisliked) return;
+
+            showConfirm(
+                `Скрыть автора "${post.author}" на 45 дней?`,
+                function(confirmed) {
+                    if (confirmed) {
+                        post.hasDisliked = true;
+                        post.dislikes = (post.dislikes || 0) + 1;
+
+                        if (post.hasLiked) {
+                            post.hasLiked = false;
+                            post.likes = (post.likes || 0) - 1;
+                        }
+
+                        const hideUntil = Date.now() + (45 * 24 * 60 * 60 * 1000);
+                        localStorage.setItem(`hidden_${currentUser}_${post.author}`, hideUntil);
+
+                        saveData();
+                        renderFeed();
+                    }
+                }
+            );
+        };
     }
+
+    // ===== ПОДТВЕРЖДЕНИЕ СКРЫТИЯ АВТОРА НА 45 ДНЕЙ =====
+const confirmOverlay = document.getElementById('confirmOverlay');
+const confirmMessage = document.getElementById('confirmMessage');
+const confirmOk = document.getElementById('confirmOk');
+const confirmCancel = document.getElementById('confirmCancel');
+
+let confirmCallback = null;
+
+window.showConfirm = function(message, callback) {
+    confirmMessage.textContent = message;
+    confirmOverlay.classList.add('active');
+    confirmCallback = callback;
+};
+
+confirmOk.onclick = function() {
+    confirmOverlay.classList.remove('active');
+    if (confirmCallback) confirmCallback(true);
+};
+
+confirmCancel.onclick = function() {
+    confirmOverlay.classList.remove('active');
+    if (confirmCallback) confirmCallback(false);
+};
+
+confirmOverlay.onclick = function(e) {
+    if (e.target === confirmOverlay) {
+        confirmOverlay.classList.remove('active');
+        if (confirmCallback) confirmCallback(false);
+    }
+};
     
     // ===== КНОПКА ОТВЕТИТЬ =====
     const replyBtn = document.createElement('button');
